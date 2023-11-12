@@ -1,8 +1,8 @@
 FROM golang:1.20-alpine AS builder
 
 RUN go env -w GO111MODULE=auto \
-  && go env -w CGO_ENABLED=0 \
-  && go env -w GOPROXY=https://goproxy.cn,direct
+    && go env -w CGO_ENABLED=0 \
+    && go env -w GOPROXY=https://goproxy.cn,direct
 
 WORKDIR /build
 
@@ -17,12 +17,13 @@ FROM alpine:latest
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN chmod +x /docker-entrypoint.sh && \
+    sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories && \
     apk add --no-cache --update \
-      ffmpeg \
-      coreutils \
-      shadow \
-      su-exec \
-      tzdata && \
+    ffmpeg \
+    coreutils \
+    shadow \
+    su-exec \
+    tzdata && \
     rm -rf /var/cache/apk/* && \
     mkdir -p /app && \
     mkdir -p /data && \
