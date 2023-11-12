@@ -253,6 +253,8 @@ func (c *Caller) call(action string, spec *onebot.Spec, p Getter) global.MSG {
 	case "reload_event_filter":
 		p0 := p.Get("file").String()
 		return c.bot.CQReloadEventFilter(p0)
+	case "reload_friend_list":
+		return c.bot.CQReloadFriendList()
 	case "send_group_sign":
 		p0 := p.Get("group_id").Int()
 		return c.bot.CQSendGroupSign(p0)

@@ -341,6 +341,16 @@ func (bot *CQBot) CQGetFriendList(spec *onebot.Spec) global.MSG {
 	return OK(fs)
 }
 
+// CQReloadFriendList 刷新好友列表
+//
+// @route(reload_friend_list)
+func (bot *CQBot) CQReloadFriendList() global.MSG {
+	if err := bot.Client.ReloadFriendList(); err != nil {
+		return Failed(100, "API_ERROR", err.Error())
+	}
+	return OK("ok")
+}
+
 // CQGetUnidirectionalFriendList 获取单向好友列表
 //
 // @route(get_unidirectional_friend_list)
